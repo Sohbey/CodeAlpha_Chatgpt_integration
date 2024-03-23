@@ -46,9 +46,44 @@ document.addEventListener("DOMContentLoaded", function (e) {
     }
   });
 
-  async function sendChatMessage(message){
-    
-   
+  async function sendChatMessage(message) {
+    let data = {
+      model: "gpt-3.5-turbo",
+      messages: [
+        {
+          role: "system",
+          content: "Welcome to Sohbey's Chatbot, How I can assist you today?",
+        },
+        { role: "user", content: message },
+      ],
+    };
+    showLoadingIndicator();
+    try {
+      let response = await fetch(apiURL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${apiKey}`,
+        },
+        body: JSON.stringify(data),
+      });
+      if(!response.ok) {
+        throw new Error("An Error occurred while sending message.");
+      }
+      let responseDate = await response.json();
+      if (
+        responseDate &&
+        responseDate.choices &&
+        responseDate.choices.length > 0
+      ) {
+        let botResponse = responseDate.choices[0].message.content;
+        hideLoadingIndicator();
+        displayMessage("received", botResponse);
+      }
+    } catch (error) {
+      console.error(error);
+      displayMessage("error", "Sorry, an error occurred. Please try again!");
+    }
   }
 
   function displayMessage(type, message) {
