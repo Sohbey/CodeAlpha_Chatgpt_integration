@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ChatBot By Sohbey</title>
+    <link rel="stylesheet" href="assests/css/style.css" />
+    <link rel="shortcut icon" href="assests/images/chatbot-img.png" />
+  </head>
+  <body>
+    <div class="chat-container">
+      <div class="chat-header">
+        <img
+          class="image-container"
+          src="assests/images/chatbot-img.png"
+          alt="logo-img"
+        />
+        <h2 class="chatbot-name">ChatBot</h2>
+      </div>
+      <div class="chatlog" id="chat-log">
+        <div class="message-received">
+          <p id="welcome-message">
+            Welcome to Sohbey's Chatbot, How I can assist you today?
+          </p>
+        </div>
+      </div>
+      <div class="chat-input">
+        <input
+          type="text"
+          class="user-input"
+          placeholder="Type your message..."
+        />
+        <button id="send-btn">Send</button>
+        <button id="clear-btn">Clear</button>
+      </div>
+    </div>
+    <div id="loading-indicator">
+      <div class="loading-spinner"></div>
+    </div>
+
+    <script src="assests/js/app.js"></script>
+  </body>
+</html>
