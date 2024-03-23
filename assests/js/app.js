@@ -3,7 +3,8 @@ document.addEventListener("DOMContentLoaded", function (e) {
   let scrollPosition = 0;
   let sendBtn = document.getElementById("send-btn");
   let userInput = document.querySelector(".user-input");
-  // let api
+  let apiKey = '';
+  let apiURL = '';
 
   sendBtn.addEventListener("click", async () => {
     let userMessage = userInput.value.trim();
