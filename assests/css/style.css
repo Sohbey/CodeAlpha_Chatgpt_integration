@@ -19,14 +19,29 @@ body {
   align-items: center;
 }
 .chatlog {
-  height: 370px;
+  height: 400px;
   overflow-y: scroll;
   padding: 10px;
 }
 .message {
   padding: 8px;
-  margin-bottom: 8px;
+  margin-bottom: 5px;
   border-radius: 5px;
+}
+.message.error{
+  background-color: #ffe6ef;
+  color: red;
+  padding: 10px;
+  border-radius: red;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  display: flex;
+  align-items: center;
+
 }
 .received {
   background: #f0f0f0;
@@ -36,6 +51,7 @@ body {
   background: #e3f2fe;
   color: black;
   text-align: right;
+  
 }
 .image-container {
   width: 40px;
@@ -78,7 +94,7 @@ p {
 }
 #loading-indicator {
   top: 45%;
-  display: flex;
+  display: none;
   left: 48%;
   align-items: center;
   justify-content: center;
