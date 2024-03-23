@@ -1,2 +1,0 @@
-let apiKey = "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";
-  let apiURL = "https://api.openai.com/v1/chat/completions";
