@@ -28,7 +28,7 @@ body {
   margin-bottom: 5px;
   border-radius: 5px;
 }
-.message.error{
+.message.error {
   background-color: #ffe6ef;
   color: red;
   padding: 10px;
@@ -41,7 +41,6 @@ body {
   -o-border-radius: 4px;
   display: flex;
   align-items: center;
-
 }
 .received {
   background: #f0f0f0;
@@ -51,7 +50,6 @@ body {
   background: #e3f2fe;
   color: black;
   text-align: right;
-  
 }
 .image-container {
   width: 40px;

@@ -3,8 +3,24 @@ document.addEventListener("DOMContentLoaded", function (e) {
   let scrollPosition = 0;
   let sendBtn = document.getElementById("send-btn");
   let userInput = document.querySelector(".user-input");
-  let apiKey = '';
-  let apiURL = '';
+  let apiKey = ""; // Set your API key here
+  let apiURL = ""; // Set your API URL here
+
+  let clearBtn = document.getElementById("clear-btn");
+
+  clearBtn.addEventListener("click", function () {
+    clearChatHistory();
+    displayMessage(
+      "received",
+      "Welcome to Sohbey's Chatbot, How can I assist you today?"
+    );
+  });
+
+  function clearChatHistory() {
+    while (chatLog.firstChild) {
+      chatLog.firstChild.remove();
+    }
+  }
 
   sendBtn.addEventListener("click", async () => {
     let userMessage = userInput.value.trim();
@@ -31,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
             console.error(error);
             displayMessage(
               "error",
-              "Error,Failed to fetch response from the API."
+              "Error: Failed to fetch response from the API."
             );
           }
           userInput.value = "";
@@ -52,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
       messages: [
         {
           role: "system",
-          content: "Welcome to Sohbey's Chatbot, How I can assist you today?",
+          content: "Welcome to Sohbey's Chatbot, How can I assist you today?",
         },
         { role: "user", content: message },
       ],
@@ -63,26 +79,29 @@ document.addEventListener("DOMContentLoaded", function (e) {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${apiKey}`,
+          Authorization: `Bearer ${apiKey}`,
         },
         body: JSON.stringify(data),
       });
-      if(!response.ok) {
-        throw new Error("An Error occurred while sending message.");
+      let responseData = await response.json();
+      if (!response.ok) {
+        throw new Error(
+          `Error: ${response.status} - ${responseData.error || "Unknown error"}`
+        );
       }
-      let responseDate = await response.json();
       if (
-        responseDate &&
-        responseDate.choices &&
-        responseDate.choices.length > 0
+        responseData &&
+        responseData.choices &&
+        responseData.choices.length > 0
       ) {
-        let botResponse = responseDate.choices[0].message.content;
+        let botResponse = responseData.choices[0].message.content;
         hideLoadingIndicator();
-        displayMessage("received", botResponse);
+        return botResponse;
       }
     } catch (error) {
       console.error(error);
-      displayMessage("error", "Sorry, an error occurred. Please try again!");
+      hideLoadingIndicator();
+      throw new Error("Sorry, an error occurred. Please try again!");
     }
   }
 
@@ -109,16 +128,6 @@ document.addEventListener("DOMContentLoaded", function (e) {
   }
 
   function scrollChatLog() {
-    let isScrolledToBottom =
-      chatLog.scrollHeight - chatLog.clientHeight <= chatLog.scrollTop + 1;
-
     chatLog.scrollTop = chatLog.scrollHeight;
-    if (isScrolledToBottom) {
-      restoreScrollPosition();
-    }
-  }
-
-  function restoreScrollPosition() {
-    chatLog.scrollTop = scrollPosition;
   }
 });
